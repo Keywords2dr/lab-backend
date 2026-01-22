@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .header {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eeeeee;
+            padding-bottom: 10px;
+        }
+        .content {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .otp-code {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #1a73e8; /* Màu xanh thương hiệu nhẹ nhàng */
+            margin: 20px 0;
+            display: block;
+        }
+        .footer {
+            font-size: 12px;
+            color: #999999;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eeeeee;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">Hệ Thống QNU</div>
+
+    <div class="content">
+        <p>Người dùng thân mến!</p>
+        <p>Để tiếp tục quy trình xác thực cho yêu cầu <strong th:text="${otpType}"></strong>, vui lòng dùng mã xác nhận sau:</p>
+
+        <span class="otp-code" th:text="${otpCode}">000000</span>
+
+        <p>Xin cảm ơn,<br>Đội ngũ QNU</p>
+    </div>
+
+    <div class="footer">
+        Đây là email tự động, vui lòng không trả lời email này.<br>
+        © 2025 Trường Đại học Quy Nhơn.
+    </div>
+</div>
+</body>
+</html>

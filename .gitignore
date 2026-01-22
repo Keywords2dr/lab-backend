@@ -37,9 +37,6 @@ build/
 ### Mac OS ###
 .DS_Store
 
-### SECURITY & LOCAL CONFIG###
-src/main/resources/
-
 .env
 .env.local
 

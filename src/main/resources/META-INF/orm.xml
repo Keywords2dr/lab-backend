@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm
+                                     https://jakarta.ee/xml/ns/persistence/orm/orm_3_0.xsd"
+                 version="3.0">
+
+    <named-query name="Item.searchGlobal">
+        <query>
+            SELECT i FROM Item i
+            LEFT JOIN Chemical c ON i.itemId = c.itemId
+            WHERE LOWER(i.name) LIKE LOWER(CONCAT('%', :keyword, '%'))
+            OR LOWER(i.itemCode) LIKE LOWER(CONCAT('%', :keyword, '%'))
+            OR LOWER(c.formula) LIKE LOWER(CONCAT('%', :keyword, '%'))
+        </query>
+    </named-query>
+
+    <named-query name="Item.searchByCategoryAndKeyword">
+        <query>
+            SELECT i FROM Item i
+            LEFT JOIN Chemical c ON i.itemId = c.itemId
+            WHERE i.categoryType = :category
+            AND (
+            LOWER(i.name) LIKE LOWER(CONCAT('%', :keyword, '%'))
+            OR LOWER(i.itemCode) LIKE LOWER(CONCAT('%', :keyword, '%'))
+            OR LOWER(c.formula) LIKE LOWER(CONCAT('%', :keyword, '%'))
+            )
+        </query>
+    </named-query>
+
+    <named-query name="User.findByUsernameWithProfile">
+        <query>
+            SELECT u FROM User u
+            LEFT JOIN FETCH u.profile
+            WHERE u.username = :username
+        </query>
+    </named-query>
+
+    <named-query name="RentTicket.countActiveBookings">
+        <query>
+            SELECT COUNT(t) FROM RentTicket t
+            WHERE t.room.roomId = :roomId
+            AND t.status IN ('PENDING', 'APPROVED')
+            AND (t.borrowDate &lt; :reqEnd)
+            AND (t.expectedReturnDate &gt; :reqStart)
+        </query>
+    </named-query>
+
+    <named-native-query name="Item.reserveStock">
+        <query>
+            UPDATE items
+            SET locked_quantity = COALESCE(locked_quantity, 0) + :quantity
+            WHERE item_id = :itemId
+            AND (COALESCE(current_quantity, 0) - COALESCE(locked_quantity, 0)) &gt;= :quantity
+        </query>
+    </named-native-query>
+
+</entity-mappings>
