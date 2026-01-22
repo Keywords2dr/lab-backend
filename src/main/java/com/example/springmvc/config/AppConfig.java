@@ -89,6 +89,7 @@ public class AppConfig {
         properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql", "true"));
         properties.put("hibernate.format_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto", "update"));
+
         return properties;
     }
 
