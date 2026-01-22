@@ -21,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Value("${file.upload-dir}")
     private String uploadDir;
 
-    @Value("${app.cors.allowed-origins}")
+    @Value("${app.cors.allowed-origins:https://lab-frontend-gamma.vercel.app}")
     private String allowedOrigins;
 
     @Bean
